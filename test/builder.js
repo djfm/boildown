@@ -1,6 +1,6 @@
 const { builderFor } = require('../lib/builder');
 
-describe('A simple interface', () => {
+describe('A simple builder', () => {
   const user = {
     deps: {
       email: 'string',
@@ -22,6 +22,15 @@ describe('A simple interface', () => {
     builder.set('email', 'bob@example.com')
       .is
       .pristine
+      .should.be.false
+  );
+
+  it('should be complete when all deps are met', () =>
+    builder
+      .set('email', 'bob@example.com')
+      .set('password', 123456789)
+      .is
+      .incomplete
       .should.be.false
   );
 });
